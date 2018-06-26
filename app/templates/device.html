@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-condensed" id="log" style="margin-bottom: 0">
+            <thead>
+                <th class="col-md-4">Timestamp</th>
+                <th class="col-md-2">Type</th>
+                <th class="col-md-6">Data</th>
+            </thead>
+            <tbody>
+                {% for message in messages %}
+                    <tr>
+                        <td>{{ message.created }}</td>
+                        <td>{{ message.type }}</td>
+                        <td class="hex">
+                            {{ message.data }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
