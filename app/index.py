@@ -15,7 +15,7 @@ bp = Blueprint('index', __name__)
 @bp.route('/<int:devid>')
 def device(devid):
     db = get_db()
-    entries = db.execute('SELECT id, created, type, body '
+    entries = db.execute('SELECT id, datetime(created, \'localtime\') as created, type, body '
         'FROM messages '
         'WHERE device_id=? '
         'ORDER BY created DESC',
