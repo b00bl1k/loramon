@@ -11,7 +11,7 @@
             </thead>
             <tbody>
                 {% for message in messages %}
-                    <tr>
+                    <tr class="message-{{ message.type }}">
                         <td>{{ message.created }}</td>
                         <td>{{ message.type }}</td>
                         <td class="hex">
