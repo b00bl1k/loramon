@@ -22,6 +22,15 @@ body {
   margin-top: 0;
   margin-bottom: 0;
   line-height: 40px;
+  font-weight: bold;
+}
+
+.header h3 a:link,
+.header h3 a:visited,
+.header h3 a:active,
+.header h3 a:hover {
+  color: #000;
+  text-decoration: none;
 }
 
 /* Custom page footer */

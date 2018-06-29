@@ -14,7 +14,9 @@
 <body>
     <div class="container">
         <div class="header clearfix">
-            <h3 class="text-muted">LoRa Monitor</h3>
+            <h3>
+                <a href="{{ url_for('index') }}">LoRa Monitor</a>
+            </h3>
         </div>
 
         {% block content %}{% endblock %}
