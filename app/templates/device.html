@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<table class="table table-condensed" id="log">
+<table class="table is-fullwidth" id="log">
     <thead>
-        <th class="col-md-4">Timestamp</th>
-        <th class="col-md-2">Type</th>
-        <th class="col-md-6">Data</th>
+        <th style="width: 30%">Timestamp</th>
+        <th style="width: 10%">Type</th>
+        <th style="width: 60%">Data</th>
     </thead>
     <tbody>
         {% for message in messages %}
