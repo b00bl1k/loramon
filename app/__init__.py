@@ -25,7 +25,7 @@ def create_app(test_config=None):
     app.register_blueprint(index.bp)
     app.add_url_rule('/', endpoint='index')
 
-    from . import lora
-    app.register_blueprint(lora.bp)
+    from . import api
+    app.register_blueprint(api.bp)
 
     return app
