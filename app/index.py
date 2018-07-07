@@ -5,9 +5,6 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-import json
-import base64
-
 from app.db import get_db, get_device
 
 bp = Blueprint('index', __name__)

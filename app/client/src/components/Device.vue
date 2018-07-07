@@ -1,25 +1,21 @@
 <template>
     <div>
-        <nav class="panel">
-            <p class="panel-heading">Devices</p>
-            <div class="panel-block">
-                <p class="control has-icons-left">
-                    <input v-model="keywords" class="input is-small" type="text" placeholder="Search by DevEUI">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-search" aria-hidden="true"></i>
-                    </span>
-                </p>
-            </div>
-            <router-link class="panel-block"
-                :to="{ name: 'Device', params: { devId: result.id }}"
-                v-for="result in results" :key="result.id">
-
-                <span class="panel-icon">
-                  <i class="fas fa-wifi" aria-hidden="true"></i>
-                </span>
-                {{ result.deveui }}
-            </router-link>
-        </nav>
+        <table class="table is-fullwidth" id="log">
+            <thead>
+                <th style="width: 30%">Timestamp</th>
+                <th style="width: 10%">Type</th>
+                <th style="width: 60%">Data</th>
+            </thead>
+            <tbody>
+                <tr v-for="result in results" :key="result.id">
+                    <td>{{ result.created }}</td>
+                    <td>{{ result.type }}</td>
+                    <td class="hex">
+                        {{ result.data }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <nav v-if="pages > 1" class="pagination" role="navigation" aria-label="pagination">
             <ul class="pagination-list">
                 <li v-for="n in pages" v-bind:key="n">
@@ -40,7 +36,6 @@ export default {
         return {
             page: 0,
             pages: 0,
-            keywords: null,
             results: []
         }
     },
@@ -49,18 +44,12 @@ export default {
         this.fetch()
     },
 
-    watch: {
-        keywords (after, before) {
-            this.fetch()
-        }
-    },
-
     methods: {
         fetch () {
             var params = { params: { deveui: this.keywords, page: this.page } }
-            axios.get('/api/devices', params)
+            axios.get('/api/device/' + this.$route.params.devId, params)
                 .then(response => {
-                    this.results = response.data.devices
+                    this.results = response.data.messages
                     this.page = response.data.page
                     this.pages = response.data.pages
                 })
@@ -78,5 +67,16 @@ export default {
 </script>
 
 <style scoped>
+.hex {
+  font-family: monospace;
+  font-size: 11pt;
+}
 
+.message-join {
+  background-color: #dff0d8;
+}
+
+.message-uplink {
+
+}
 </style>
