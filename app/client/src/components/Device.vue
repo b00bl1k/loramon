@@ -7,7 +7,7 @@
                 <th style="width: 60%">Data</th>
             </thead>
             <tbody>
-                <tr v-for="result in results" :key="result.id">
+                <tr v-bind:class="'message-' + result.type" v-for="result in results" :key="result.id">
                     <td>{{ result.created }}</td>
                     <td>{{ result.type }}</td>
                     <td class="hex">
@@ -65,7 +65,7 @@ export default {
 }
 
 .message-join {
-  background-color: #a0f080;
+  background-color: #dff0d8;
 }
 
 .message-uplink {
