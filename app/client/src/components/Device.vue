@@ -16,19 +16,12 @@
                 </tr>
             </tbody>
         </table>
-        <nav v-if="pages > 1" class="pagination" role="navigation" aria-label="pagination">
-            <ul class="pagination-list">
-                <li v-for="n in pages" v-bind:key="n">
-                    <a v-on:click="selectPage(n)"
-                        v-bind:class="{'pagination-link': true, 'is-current': page == n}"
-                        aria-current="page">{{ n }}</a>
-                </li>
-            </ul>
-        </nav>
+        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </div>
 </template>
 
 <script>
+import InfiniteLoading from 'vue-infinite-loading'
 import axios from 'axios'
 
 export default {
@@ -40,28 +33,27 @@ export default {
         }
     },
 
-    created () {
-        this.fetch()
+    methods: {
+        infiniteHandler ($state) {
+            if (this.page < this.pages || this.pages === 0) {
+                this.page++
+                var params = { params: { deveui: this.keywords, page: this.page } }
+                axios.get('/api/device/' + this.$route.params.devId, params)
+                    .then(response => {
+                        this.results = this.results.concat(response.data.messages)
+                        this.page = response.data.page
+                        this.pages = response.data.pages
+                        $state.loaded()
+                    })
+                    .catch(e => {
+
+                    })
+            }
+        }
     },
 
-    methods: {
-        fetch () {
-            var params = { params: { deveui: this.keywords, page: this.page } }
-            axios.get('/api/device/' + this.$route.params.devId, params)
-                .then(response => {
-                    this.results = response.data.messages
-                    this.page = response.data.page
-                    this.pages = response.data.pages
-                })
-                .catch(e => {
-
-                })
-        },
-
-        selectPage (nPage) {
-            this.page = nPage
-            this.fetch()
-        }
+    components: {
+        InfiniteLoading
     }
 }
 </script>
@@ -73,7 +65,7 @@ export default {
 }
 
 .message-join {
-  background-color: #dff0d8;
+  background-color: #a0f080;
 }
 
 .message-uplink {
