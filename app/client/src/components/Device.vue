@@ -16,7 +16,9 @@
                 </tr>
             </tbody>
         </table>
-        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+        <infinite-loading @infinite="infiniteHandler">
+            <span slot="no-more"></span>
+        </infinite-loading>
     </div>
 </template>
 
@@ -48,6 +50,8 @@ export default {
                     .catch(e => {
 
                     })
+            } else {
+                $state.complete()
             }
         }
     },
