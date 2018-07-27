@@ -39,7 +39,7 @@ export default {
         infiniteHandler ($state) {
             if (this.page < this.pages || this.pages === 0) {
                 this.page++
-                var params = { params: { deveui: this.keywords, page: this.page } }
+                var params = { params: { page: this.page } }
                 axios.get('/api/device/' + this.$route.params.devId, params)
                     .then(response => {
                         this.results = this.results.concat(response.data.messages)
