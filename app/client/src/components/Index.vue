@@ -23,9 +23,9 @@
         <nav v-if="pages > 1" class="pagination" role="navigation" aria-label="pagination">
             <ul class="pagination-list">
                 <li v-for="n in pages" v-bind:key="n">
-                    <a v-on:click="selectPage(n)"
+                    <router-link :to="{ name: 'IndexPaging', params: { page: n }}"
                         v-bind:class="{'pagination-link': true, 'is-current': page == n}"
-                        aria-current="page">{{ n }}</a>
+                        aria-current="page">{{ n }}</router-link>
                 </li>
             </ul>
         </nav>
@@ -50,6 +50,9 @@ export default {
     },
 
     watch: {
+        '$route' (to, from) {
+            this.fetch()
+        },
         keywords (after, before) {
             this.fetch()
         }
@@ -57,7 +60,12 @@ export default {
 
     methods: {
         fetch () {
-            var params = { params: { deveui: this.keywords, page: this.page } }
+            var params = {
+                params: {
+                    deveui: this.keywords,
+                    page: this.$route.params.page
+                }
+            }
             axios.get('/api/devices', params)
                 .then(response => {
                     this.results = response.data.devices
@@ -67,16 +75,7 @@ export default {
                 .catch(e => {
 
                 })
-        },
-
-        selectPage (nPage) {
-            this.page = nPage
-            this.fetch()
         }
     }
 }
 </script>
-
-<style scoped>
-
-</style>

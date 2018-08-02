@@ -13,6 +13,11 @@ export default new Router({
             component: Index
         },
         {
+            path: '/page/:page',
+            name: 'IndexPaging',
+            component: Index
+        },
+        {
             path: '/device/:devId',
             name: 'Device',
             component: Device
