@@ -3,13 +3,15 @@
         <table class="table is-fullwidth" id="log">
             <thead>
                 <th style="width: 30%">Timestamp</th>
-                <th style="width: 10%">Type</th>
+                <th style="width: 10%">SF</th>
+                <th style="width: 10%">RSSI</th>
                 <th style="width: 60%">Data</th>
             </thead>
             <tbody>
                 <tr v-bind:class="'message-' + result.type" v-for="result in results" :key="result.id">
                     <td>{{ result.created }}</td>
-                    <td>{{ result.type }}</td>
+                    <td>{{ result.txInfo.dataRate.spreadFactor }}</td>
+                    <td>{{ result.rxInfo[0].rssi }}</td>
                     <td class="hex">
                         {{ result.data }}
                     </td>

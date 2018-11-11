@@ -126,6 +126,8 @@ def device(dev_id):
         messages.append({'id': entry['id'],
             'created': entry['created'],
             'type': entry['type'],
+            'rxInfo': obj['rxInfo'],
+            'txInfo': obj['txInfo'],
             'data': data})
 
     return json.dumps({
